@@ -86,6 +86,7 @@ zero.addEventListener('click', () => {
 
 // EVENT LISTENERS FOR OPERATION BUTTONS
 // these don’t work right now. Operating var doesnt work right now. need to make it so that when you *first* start “operating” the display will clear, but with subsequent button presses, the number will build like it did before
+// needs new names too so that they don’t have funciton names
 const plus = document.querySelector('#plus');
 plus.addEventListener('click', () => {
     let operandx = display;
