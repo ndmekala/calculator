@@ -1,5 +1,5 @@
 let display = "0";
-let operating = false;
+let firstDigitOperating = false;
 let displayBox = document.querySelector('#display')
 displayBox.textContent = display;
 
@@ -86,40 +86,46 @@ zero.addEventListener('click', () => {
 
 // EVENT LISTENERS FOR OPERATION BUTTONS
 // these don’t work right now. Operating var doesnt work right now. need to make it so that when you *first* start “operating” the display will clear, but with subsequent button presses, the number will build like it did before
-// needs new names too so that they don’t have funciton names
-const plus = document.querySelector('#plus');
-plus.addEventListener('click', () => {
+// build so that if firstDigitOperating is true and you press number it clears and then switches to false
+// but if false, it adds to string
+const plusBox = document.querySelector('#plus');
+plusBox.addEventListener('click', () => {
     let operandx = display;
-    operating = true;
+    firstDigitOperating = true;
     let operation = "+";
-    //the idea is to alsomake this hightlihgt the chosen button
+    //the idea is to alsomake this hightlihgt the chosen button like IOS
 });
 
-const minus = document.querySelector('#minus');
-minus.addEventListener('click', () => {
+const minusBox = document.querySelector('#minus');
+minusBox.addEventListener('click', () => {
     let operandx = display;
-    operating = true;
+    firstDigitOperating = true;
     let operation = "-";
-    //the idea is to alsomake this hightlihgt the chosen button
+    //the idea is to alsomake this hightlihgt the chosen button like IOS
 });
 
-const multiply = document.querySelector('#multiply');
-multiply.addEventListener('click', () => {
+const multiplyBox = document.querySelector('#multiply');
+multiplyBox.addEventListener('click', () => {
     let operandx = display;
-    operating = true;
+    firstDigitOperating = true;
     let operation = "*";
-    //the idea is to alsomake this hightlihgt the chosen button
+    //the idea is to alsomake this hightlihgt the chosen button like IOS
 });
 
-const divide = document.querySelector('#divide');
-divide.addEventListener('click', () => {
+const divideBox = document.querySelector('#divide');
+divideBox.addEventListener('click', () => {
     let operandx = display;
-    operating = true;
+    firstDigitOperating = true;
     let operation = "/";
-    //the idea is to alsomake this hightlihgt the chosen button
+    //the idea is to alsomake this hightlihgt the chosen button like IOS
 });
 
 
+
+//CLEAR FUNCTION (is this what we want it to do…?)
+function clear() {
+    display = "0"
+}
 
 //when a number is selected
 //Make sure that this is input independent. 
