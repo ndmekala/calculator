@@ -120,7 +120,8 @@ divideBox.addEventListener('click', () => {
     //the idea is to alsomake this hightlihgt the chosen button like IOS
 });
 
-
+//EQUALS FUNCTION
+//basically runs this : operate(operation, operandx, display)
 
 //CLEAR FUNCTION (is this what we want it to do…?)
 function clear() {
@@ -134,6 +135,10 @@ function clear() {
 //and have clicks alter it
 function addSelectionToDisplay(selection) {
     // let displayBox = document.querySelector('#display')
+    if (firstDigitOperating) {
+        clear();
+        firstDigitOperating = 0;
+    }
     if (display === "0") {
         display = selection
         displayBox.textContent = display
