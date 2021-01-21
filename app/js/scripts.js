@@ -1,5 +1,10 @@
 let display = "0";
 let firstDigitOperating = false;
+let operandx
+let operation
+let operandy
+// DO I need to make just Evaluated go to zero after + - / * is pressed?
+let justEvaluated = 0;
 let displayBox = document.querySelector('#display')
 displayBox.textContent = display;
 
@@ -22,18 +27,19 @@ function divide(x, y) {
 }
 
 function operate(operator, x, y) {
-    if (operator = "+") {
-        return add(x,y);
-    } else if (operator = "-") {
-        return subtract(x,y);
-    } else if (operator = "*") {
-        return multiply(x,y);
-    } else if (operator = "/") {
-        return divide(x,y);
+    if (operator === "+") {
+        return add(Number(x),Number(y));
+    } else if (operator === "-") {
+        return subtract(Number(x),Number(y));
+    } else if (operator === "*") {
+        return multiply(Number(x),Number(y));
+    } else if (operator === "/") {
+        return divide(Number(x),Number(y));
     }
 }
 
 // EVENT LISTENERS FOR NUMBER BUTTONS
+//Why do I get the error that display.concat is not a function specifically when 
 const one = document.querySelector('#one');
 one.addEventListener('click', () => {
     addSelectionToDisplay('1');
@@ -84,67 +90,141 @@ zero.addEventListener('click', () => {
     addSelectionToDisplay('0');
 });
 
-// EVENT LISTENERS FOR OPERATION BUTTONS
-// these don’t work right now. Operating var doesnt work right now. need to make it so that when you *first* start “operating” the display will clear, but with subsequent button presses, the number will build like it did before
-// build so that if firstDigitOperating is true and you press number it clears and then switches to false
-// but if false, it adds to string
+// EVENT LISTENERS AND FUNCTIONS FOR OPERATION BUTTONS
+// Idea is to also make these highlight the chosen button (like iOS)
 const plusBox = document.querySelector('#plus');
 plusBox.addEventListener('click', () => {
-    let operandx = display;
-    firstDigitOperating = true;
-    let operation = "+";
-    //the idea is to alsomake this hightlihgt the chosen button like IOS
+    selectPlus();
 });
+function selectPlus() {
+    if (!operandx) {
+        operandx = display;
+    }
+    else {
+        operandx = operate(operation, operandx, display)
+    }
+    firstDigitOperating = true;
+    operation = "+";
+}
 
 const minusBox = document.querySelector('#minus');
 minusBox.addEventListener('click', () => {
-    let operandx = display;
-    firstDigitOperating = true;
-    let operation = "-";
-    //the idea is to alsomake this hightlihgt the chosen button like IOS
+    selectMinus();
 });
+function selectMinus() {
+    if (!operandx) {
+        operandx = display;
+    }
+    else {
+        operandx = operate(operation, operandx, display)
+    }
+    firstDigitOperating = true;
+    operation = "-";
+}
 
 const multiplyBox = document.querySelector('#multiply');
 multiplyBox.addEventListener('click', () => {
-    let operandx = display;
-    firstDigitOperating = true;
-    let operation = "*";
-    //the idea is to alsomake this hightlihgt the chosen button like IOS
+    selectMultiply()
 });
+function selectMultiply() {
+    if (!operandx) {
+        operandx = display;
+    }
+    else {
+        operandx = operate(operation, operandx, display)
+    }
+    firstDigitOperating = true;
+    operation = "*";
+}
 
 const divideBox = document.querySelector('#divide');
 divideBox.addEventListener('click', () => {
-    let operandx = display;
-    firstDigitOperating = true;
-    let operation = "/";
-    //the idea is to alsomake this hightlihgt the chosen button like IOS
+    selectDivide();
 });
-
-//EQUALS FUNCTION
-//basically runs this : operate(operation, operandx, display)
-
-//CLEAR FUNCTION (is this what we want it to do…?)
-function clear() {
-    display = "0"
+function selectDivide() {
+    if (!operandx) {
+        operandx = display;
+    }
+    else {
+        operandx = operate(operation, operandx, display)
+    }
+    firstDigitOperating = true;
+    operation = "/";
 }
 
-//when a number is selected
-//Make sure that this is input independent. 
-//in other words, make it function based and add event listeners to the function.
-//that way you can have event listeners for key presses alter it
-//and have clicks alter it
+const plusMinusBox = document.querySelector('#plusminus');
+plusMinusBox.addEventListener('click', () => {
+    selectPlusMinus();
+})
+function selectPlusMinus() {
+    display = -Number(display);
+    displayBox.textContent = display;
+}
+
+const percentageBox = document.querySelector('#percentage');
+percentageBox.addEventListener('click', () => {
+    selectPercentage();
+})
+function selectPercentage() {
+    display = Number(display)/100;
+    displayBox.textContent = display;
+}
+
+//EQUALS EVENT LISTENER + FUNCTION
+//basically runs this : operate(operation, operandx, display)
+const equalsBox = document.querySelector('#equals');
+equalsBox.addEventListener('click', () => {
+    selectEquals();
+});
+function selectEquals() {
+    if (justEvaluated) {
+        display = operate(operation, operandx, operandy);
+        operandx = display;
+        justEvaluated = 1;
+        displayBox.textContent = display;
+    } else {
+        operandy = display;
+        display = operate(operation, operandx, operandy);
+        operandx = display;
+        justEvaluated = 1;
+        displayBox.textContent = display;
+    }
+    
+}
+
+//CLEAR EVENT LISTENER FUNCTION (is this what we want it to do…?)
+const clearBox = document.querySelector('#clear');
+clearBox.addEventListener('click', () => {
+    clearDisplay();
+    clearOperandX();
+    displayBox.textContent = display;
+})
+function clearDisplay() {
+    display = "0"
+}
+function clearOperandX() {
+    operandx = undefined
+}
+function clearOperandY() {
+    operandy = undefined
+}
+
+// FUNCTION THAT ADDS SELECTION TO DISPLAY
 function addSelectionToDisplay(selection) {
-    // let displayBox = document.querySelector('#display')
     if (firstDigitOperating) {
-        clear();
+        clearDisplay();
         firstDigitOperating = 0;
     }
-    if (display === "0") {
-        display = selection
-        displayBox.textContent = display
+    if (display === "0" || justEvaluated) {
+        display = selection;
+        displayBox.textContent = display;
+        justEvaluated = 0;
     } else {
+        display = display.toString();
         display = display.concat(selection);
         displayBox.textContent = display;
     }
 }
 
+// there’s some seriously weird behavior.
+// for example: operand x and y remain when you go from pressing enter a bunch to entering numbers. so if you select enter again… IT HAS IDEAS
