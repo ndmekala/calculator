@@ -1,10 +1,7 @@
 let display = "0";
+let memory = []
 let firstDigitOperating = false;
-let operandx
-let operation
-let operandy
-// DO I need to make just Evaluated go to zero after + - / * is pressed?
-let justEvaluated = 0;
+
 let displayBox = document.querySelector('#display')
 displayBox.textContent = display;
 
@@ -36,6 +33,16 @@ function operate(operator, x, y) {
     } else if (operator === "/") {
         return divide(Number(x),Number(y));
     }
+}
+
+function storeVars(x, op, y, button) {
+    memory.push({
+        operandx: x,
+        operator: op,
+        operandy: y,
+        result: operate(op, x, y),
+        pressed: button,
+    })
 }
 
 // EVENT LISTENERS FOR NUMBER BUTTONS
@@ -97,80 +104,43 @@ decimal.addEventListener('click', () => {
 
 // EVENT LISTENERS AND FUNCTIONS FOR OPERATION BUTTONS
 // Idea is to also make these highlight the chosen button (like iOS)
+// thse dont work when you go *back* to them from pressing equals because last pressed = "=", which crashes operate() via storeVars
 const plusBox = document.querySelector('#plus');
 plusBox.addEventListener('click', () => {
-    selectPlus();
+    select('+');
 });
-function selectPlus() {
-    // if (justEvaluated) {
-        clearOperandY();
-        justEvaluated = 0;
-    // }
-    if (!operandx) {
-        operandx = display;
-    }
-    else {
-        operandx = operate(operation, operandx, display)
-    }
-    firstDigitOperating = true;
-    operation = "+";
-}
-
 const minusBox = document.querySelector('#minus');
 minusBox.addEventListener('click', () => {
-    selectMinus();
+    select('-');
 });
-function selectMinus() {
-    // if (justEvaluated) {
-        clearOperandY();
-        justEvaluated = 0;
-    // }
-    if (!operandx) {
-        operandx = display;
-    }
-    else {
-        operandx = operate(operation, operandx, display)
-    }
-    firstDigitOperating = true;
-    operation = "-";
-}
-
 const multiplyBox = document.querySelector('#multiply');
 multiplyBox.addEventListener('click', () => {
-    selectMultiply()
+    select('*')
 });
-function selectMultiply() {
-    // if (justEvaluated) {
-        clearOperandY();
-        justEvaluated = 0;
-    // }
-    if (!operandx) {
-        operandx = display;
-    }
-    else {
-        operandx = operate(operation, operandx, display)
-    }
-    firstDigitOperating = true;
-    operation = "*";
-}
-
 const divideBox = document.querySelector('#divide');
 divideBox.addEventListener('click', () => {
-    selectDivide();
+    select('/')
 });
-function selectDivide() {
-    // if (justEvaluated) {
-        clearOperandY();
-        justEvaluated = 0;
-    // }
-    if (!operandx) {
-        operandx = display;
+
+function select(opclicked) {
+    if (memory[memory.length-1]) {
+        // if you’re calculating based on something that itself was calculated
+        if (memory[memory.length-1].result) {
+            storeVars(memory[memory.length-1].result, memory[memory.length-1].pressed, display, opclicked);
+            display = memory[memory.length-1].result;
+        }
+        // if you just entered the first thing
+        else {
+            storeVars(memory[memory.length-1].operandx, memory[memory.length-1].pressed, display, opclicked)
+            display = memory[memory.length-1].result
+        }
     }
+    // if you’re putting in the first thing    
     else {
-        operandx = operate(operation, operandx, display)
+        storeVars(display,undefined,undefined, opclicked)
     }
+    displayBox.textContent = display;
     firstDigitOperating = true;
-    operation = "/";
 }
 
 const plusMinusBox = document.querySelector('#plusminus');
@@ -178,12 +148,7 @@ plusMinusBox.addEventListener('click', () => {
     selectPlusMinus();
 })
 function selectPlusMinus() {
-    justEvaluated = 0;
-    clearOperandX();
-    clearOperandY();
-    clearOperation();
-    display = -Number(display);
-    displayBox.textContent = display;
+    
 }
 
 const percentageBox = document.querySelector('#percentage');
@@ -191,95 +156,56 @@ percentageBox.addEventListener('click', () => {
     selectPercentage();
 })
 function selectPercentage() {
-    justEvaluated = 0;
-    clearOperandX();
-    clearOperandY();
-    clearOperation();
-    display = Number(display)/100;
-    displayBox.textContent = display;
+    
 }
 
 //EQUALS EVENT LISTENER + FUNCTION
-//basically runs this : operate(operation, operandx, display)
 const equalsBox = document.querySelector('#equals');
 equalsBox.addEventListener('click', () => {
     selectEquals();
 });
 function selectEquals() {
-    if (operandx === undefined) {
+    // if you’re calculating on something that was itself calculated
+    if (memory[memory.length-2]) {
+        for (i = memory.length-1; i >= 0; i--) {
+            if (memory[i].pressed !== "=") {
+                storeVars(memory[memory.length-1].result, memory[i].pressed, memory[memory.length-1].operandy, '=')
+                break
+            }
+        }
     }
-    else if (justEvaluated) {
-        display = operate(operation, operandx, operandy);
-        operandx = display;
-        justEvaluated = 1;
-        displayBox.textContent = display;
-
-    // So if I say 3 + 9 = = = I will get 3 + 9 + 9 + 9 = 30
-    // 9 in operand y
-    // 30 stored in operand x
-    // but then if I press - 6 and press enter I will get 54…
-    // what’s happening
-    // when i press minus … operandx = operate(operation, operandx, display)
-    // BEFORE changing operation and BEFORE changing display
-    // operand x becomes operate(+, 30, 30);
-    // so operand x becmoes 60
-    // and operand y becomes 6 based off of equals
-    // then i press enter and it does this:
-    // display = operate(minus, 60, 6)
-
-    // THERES EVEN MORE WEIRDNESS IF I KEEP PRESSING MINUS… operandx keeps changing!
-    // do i need to scrap this??
-
-    } else {
-        operandy = display;
-        display = operate(operation, operandx, operandy);
-        operandx = display;
-        justEvaluated = 1;
-        displayBox.textContent = display;
+    // if you’re calculating the very first equation
+    else if (memory[memory.length-1]) {
+        storeVars(memory[memory.length-1].operandx, memory[memory.length-1].pressed, display, '=')
     }
-    
+    display = memory[memory.length-1].result;
+    displayBox.textContent = display;
 }
 
 //CLEAR EVENT LISTENER FUNCTION (is this what we want it to do…?)
 const clearBox = document.querySelector('#clear');
 clearBox.addEventListener('click', () => {
+    memory = []
     clearDisplay();
-    clearOperandX();
-    clearOperandY();
-    clearOperation();
     displayBox.textContent = display;
 })
 function clearDisplay() {
     display = "0"
 }
-function clearOperandX() {
-    operandx = undefined
-}
-function clearOperandY() {
-    operandy = undefined
-}
-function clearOperation() {
-    operation = ""
-}
 
 // FUNCTION THAT ADDS SELECTION TO DISPLAY
 function addSelectionToDisplay(selection) {
-    if (justEvaluated) {
-        clearOperandX();
-        clearOperandY();
-    }
     if (firstDigitOperating) {
         clearDisplay();
         firstDigitOperating = 0;
     }
-    if (display === "0" || display === -0 || justEvaluated) {
+    if (display === "0" || display === -0) {
         if ((display === "0" || display === -0) & selection === '.') {
             display = '0' + selection;
         } else {
             display = selection;
         }
         displayBox.textContent = display;
-        justEvaluated = 0;
     } else {
         display = display.toString();
         if (selection !== "." || display.indexOf('.') === -1) {
