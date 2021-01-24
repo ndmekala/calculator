@@ -20,7 +20,7 @@ body {
     /* this will change depending on size*/
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr  1fr  1fr  1fr 1fr;
-    border: 1px solid blanchedalmond
+    background-color: #0B4141;
   }
 
 #display {
@@ -30,6 +30,7 @@ body {
     grid-row-end: 2;
     text-align: right;
     font-size: 50px;
+    color: #FAF0DC;
 }
 
 #backspace {
@@ -51,8 +52,9 @@ body {
 
 .button {
     text-align: center;
+    margin: 5%;
     padding: 50% 0 0 0;
-    background-color: blanchedalmond;
+    background-color: #FAF0DC;
     border-radius: 50%;
 }
 
@@ -61,4 +63,8 @@ body {
     grid-column-end: 2;
     grid-row-start: 2;
     grid-row-end: 3;
+}
+
+#multiply, #divide, #minus, #plus {
+    background-color: #FF6864
 }
