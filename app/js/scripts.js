@@ -218,6 +218,9 @@ function addSelectionToDisplay(selection) {
                 // note: clear but not all clear on the apple mac calc stores the display and the operator that’s it. So when you press equals again
                 // you’re technically doing a brand new operation…
                 // look again, it works weird!
+                
+
+                // THIS BROKE EVERYTHIGN!
                 storeVars(undefined, memory[memory.length-1].operator, memory[memory.length-1].operandy, '=')
             }
         }
