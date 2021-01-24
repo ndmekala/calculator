@@ -233,7 +233,7 @@ function selectEquals() {
         else {
             for (i = memory.length-1; i >= 0; i--) {
                 if (memory[i].pressed !== "=") {
-                    storeVars(memory[memory.length-1].result, memory[i].pressed, memory[memory.length-1].operandy, '=')
+                    storeVars(memory[memory.length-1].result, memory[memory.length-1].pressed, memory[memory.length-1].operandy, '=')
                     break
                 }
             }
@@ -265,7 +265,7 @@ function addSelectionToDisplay(selection) {
         clearDisplay();
         firstDigitOperating = 0;
         if (memory[0]) {
-            if (memory[memory.length-1].pressed = "=") {
+            if (memory[memory.length-1].pressed === "=") {
                 // im not sure this works because selectEquals() never stores whats on the display (which makes sense…)
                 // but if I made it do that in specific instances, it would essentially be the same functionality as pressing “clear”
                 // but not all clear
