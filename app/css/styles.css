@@ -65,6 +65,6 @@ body {
     grid-row-end: 3;
 }
 
-#multiply, #divide, #minus, #plus {
+#multiply, #divide, #minus, #plus, #equals {
     background-color: #FF6864
 }
