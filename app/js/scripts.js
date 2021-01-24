@@ -104,7 +104,6 @@ decimal.addEventListener('click', () => {
 
 // EVENT LISTENERS AND FUNCTIONS FOR OPERATION BUTTONS
 // Idea is to also make these highlight the chosen button (like iOS)
-// thse dont work when you go *back* to them from pressing equals because last pressed = "=", which crashes operate() via storeVars
 const plusBox = document.querySelector('#plus');
 plusBox.addEventListener('click', () => {
     select('+');
@@ -123,16 +122,20 @@ divideBox.addEventListener('click', () => {
 });
 
 function select(opclicked) {
-    if (memory[memory.length-1]) {
-        // if you’re calculating based on something that itself was calculated
-        if (memory[memory.length-1].result) {
+    if (memory[0]) {
+        // if you’re calculating based on something that itself was succesfully calculated with operate()
+        if (memory[memory.length-1].result !== undefined) {
             storeVars(memory[memory.length-1].result, memory[memory.length-1].pressed, display, opclicked);
             display = memory[memory.length-1].result;
         }
         // if you just entered the first thing
-        else {
+        else if (memory[memory.length-1].pressed !== '=') {
             storeVars(memory[memory.length-1].operandx, memory[memory.length-1].pressed, display, opclicked)
             display = memory[memory.length-1].result
+        }
+        // if you just evaluated something with =
+        else {
+            storeVars(display,undefined,undefined,opclicked)
         }
     }
     // if you’re putting in the first thing    
@@ -148,7 +151,6 @@ plusMinusBox.addEventListener('click', () => {
     selectPlusMinus();
 })
 function selectPlusMinus() {
-    
 }
 
 const percentageBox = document.querySelector('#percentage');
@@ -165,21 +167,28 @@ equalsBox.addEventListener('click', () => {
     selectEquals();
 });
 function selectEquals() {
-    // if you’re calculating on something that was itself calculated
-    if (memory[memory.length-2]) {
-        for (i = memory.length-1; i >= 0; i--) {
-            if (memory[i].pressed !== "=") {
-                storeVars(memory[memory.length-1].result, memory[i].pressed, memory[memory.length-1].operandy, '=')
-                break
+    if (memory[0]) {
+        if (memory[memory.length-1].pressed !== '=') {
+            if (memory[memory.length-1].result !== undefined) {
+                storeVars(memory[memory.length-1].result, memory[memory.length-1].pressed, display, '=')
+            }
+            else {
+                storeVars(memory[memory.length-1].operandx, memory[memory.length-1].pressed, display, '=')
             }
         }
+        else {
+            for (i = memory.length-1; i >= 0; i--) {
+                if (memory[i].pressed !== "=") {
+                    storeVars(memory[memory.length-1].result, memory[i].pressed, memory[memory.length-1].operandy, '=')
+                    break
+                }
+            }
+        }
+        display = memory[memory.length-1].result;
+        displayBox.textContent = display;
     }
-    // if you’re calculating the very first equation
-    else if (memory[memory.length-1]) {
-        storeVars(memory[memory.length-1].operandx, memory[memory.length-1].pressed, display, '=')
-    }
-    display = memory[memory.length-1].result;
-    displayBox.textContent = display;
+    // what happens if i…
+    firstDigitOperating = 1;
 }
 
 //CLEAR EVENT LISTENER FUNCTION (is this what we want it to do…?)
@@ -194,10 +203,24 @@ function clearDisplay() {
 }
 
 // FUNCTION THAT ADDS SELECTION TO DISPLAY
+// need to change so that you don’t just edit a value after "=" is pressed but not sure how
+// value needs to reset upon pressing…
+// might need a toggle variable…
 function addSelectionToDisplay(selection) {
     if (firstDigitOperating) {
         clearDisplay();
         firstDigitOperating = 0;
+        if (memory[0]) {
+            if (memory[memory.length-1].pressed = "=") {
+                // im not sure this works because selectEquals() never stores whats on the display (which makes sense…)
+                // but if I made it do that in specific instances, it would essentially be the same functionality as pressing “clear”
+                // but not all clear
+                // note: clear but not all clear on the apple mac calc stores the display and the operator that’s it. So when you press equals again
+                // you’re technically doing a brand new operation…
+                // look again, it works weird!
+                storeVars(undefined, memory[memory.length-1].operator, memory[memory.length-1].operandy, '=')
+            }
+        }
     }
     if (display === "0" || display === -0) {
         if ((display === "0" || display === -0) & selection === '.') {
