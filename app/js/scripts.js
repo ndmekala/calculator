@@ -102,6 +102,60 @@ decimal.addEventListener('click', () => {
     addSelectionToDisplay('.');
 });
 
+window.addEventListener('keydown', event => {
+    if (event.key === '1') {
+        addSelectionToDisplay('1');
+    }
+    if (event.key === '2') {
+        addSelectionToDisplay('2');
+    }
+    if (event.key === '3') {
+        addSelectionToDisplay('3');
+    }
+    if (event.key === '4') {
+        addSelectionToDisplay('4');
+    }
+    if (event.key === '5') {
+        addSelectionToDisplay('5');
+    }
+    if (event.key === '6') {
+        addSelectionToDisplay('6');
+    }
+    if (event.key === '7') {
+        addSelectionToDisplay('7');
+    }
+    if (event.key === '8') {
+        addSelectionToDisplay('8');
+    }
+    if (event.key === '9') {
+        addSelectionToDisplay('9');
+    }
+    if (event.key === '0') {
+        addSelectionToDisplay('0');
+    }
+    if (event.key === '.') {
+        addSelectionToDisplay('.');
+    }
+    if (event.key === '+') {
+        select('+');
+    }
+    if (event.key === '-') {
+        select('-');
+    }
+    if (event.key === '*') {
+        select('*')
+    }
+    if (event.keyCode === '/') {
+        select('/')
+    }
+    if (event.key === '=') {
+        selectEquals();
+    }
+    if (event.key === 'Enter') {
+        selectEquals();
+    }
+})
+
 // EVENT LISTENERS AND FUNCTIONS FOR OPERATION BUTTONS
 // Idea is to also make these highlight the chosen button (like iOS)
 const plusBox = document.querySelector('#plus');
