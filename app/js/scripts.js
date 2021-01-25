@@ -247,10 +247,6 @@ function selectEquals() {
     if(memory[0]) {
         if (memory[memory.length-1].pressed === '=') {
             for (i = memory.length-1; i >= 0; i--) {
-<<<<<<< HEAD
-                if (memory[i].pressed !== "=") {
-                    storeVars(memory[memory.length-1].result, memory[memory.length-1].pressed, memory[memory.length-1].operandy, '=')
-=======
                 if (memory[i].pressed !== '=') {
                     storeVars(
                         memory[memory.length-1].result,
@@ -260,7 +256,6 @@ function selectEquals() {
                         operate(memory[i].pressed, memory[memory.length-1].result, memory[i].operandy),
                         '='
                     );
->>>>>>> 19078847dd8f1e6629cf6dbcb36b826bf8522752
                     break
                 }
             }
@@ -324,16 +319,6 @@ function addSelectionToDisplay(selection) {
     if (firstDigitOperating) {
         clearDisplay();
         firstDigitOperating = 0;
-<<<<<<< HEAD
-        if (memory[0]) {
-            if (memory[memory.length-1].pressed === "=") {
-                // im not sure this works because selectEquals() never stores whats on the display (which makes sense…)
-                // but if I made it do that in specific instances, it would essentially be the same functionality as pressing “clear”
-                // but not all clear
-                // note: clear but not all clear on the apple mac calc stores the display and the operator that’s it. So when you press equals again
-                // you’re technically doing a brand new operation…
-                // look again, it works weird!
-=======
         // if (memory[0]) {
         //     if (memory[memory.length-1].pressed = "=") {
         //         // im not sure this works because selectEquals() never stores whats on the display (which makes sense…)
@@ -342,7 +327,6 @@ function addSelectionToDisplay(selection) {
         //         // note: clear but not all clear on the apple mac calc stores the display and the operator that’s it. So when you press equals again
         //         // you’re technically doing a brand new operation…
         //         // look again, it works weird!
->>>>>>> 19078847dd8f1e6629cf6dbcb36b826bf8522752
                 
 
         //         // THIS BROKE EVERYTHIGN!
