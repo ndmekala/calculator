@@ -23,21 +23,23 @@ body {
     background-color: #0B4141;
   }
 
-#display {
+
+
+#displayContainer {
     grid-column-start: 1;
-    grid-column-end: 4;
+    grid-column-end: 5;
     grid-row-start: 1;
     grid-row-end: 2;
     text-align: right;
     font-size: 50px;
     color: #FAF0DC;
+    position: relative;
 }
 
-#backspace {
-    grid-column-start: 4;
-    grid-column-end: 5;
-    grid-row-start: 1;
-    grid-row-end: 2;
+#display {
+    position: absolute;
+    bottom: 0;
+    right: 5px;
 }
 
 #zero {
@@ -58,13 +60,10 @@ body {
     border-radius: 50%;
 }
 
-#tempbuttons {
-    grid-column-start: 1;
-    grid-column-end: 2;
-    grid-row-start: 2;
-    grid-row-end: 3;
-}
-
 #multiply, #divide, #minus, #plus, #equals {
     background-color: #FF6864
+}
+
+svg {
+    width: 100%
 }

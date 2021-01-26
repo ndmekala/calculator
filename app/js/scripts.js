@@ -1,6 +1,8 @@
 let display = "0";
 let memory = []
 let firstDigitOperating = false;
+let allClear = true;
+
 
 let displayBox = document.querySelector('#display')
 displayBox.textContent = display;
@@ -8,19 +10,19 @@ displayBox.textContent = display;
 
 // OPERATION FUNCTIONS
 function add(x, y) {
-    return x + y;
+    return (100*x + 100*y)/100;
 }
 
 function subtract(x, y) {
-    return x - y;
+    return (100*x - 100*y)/100;
 }
 
 function multiply(x, y) {
-    return x * y;
+    return (100*x * 100*y)/(100*100);
 }
 
 function divide(x, y) {
-    return x / y;
+    return 100 * x / (100 * y);
 }
 
 function operate(operator, x, y) {
@@ -176,7 +178,9 @@ divideBox.addEventListener('click', () => {
 });
 
 function select(funcoperator) {
-    if (!memory[0] || memory[memory.length-1].pressed === '=') {
+    if (!memory[0] || 
+         memory[memory.length-1].pressed === '=' || 
+         memory[memory.length-1].pressed === 'clr') {
         storeVars(
             undefined,
             undefined,
@@ -195,30 +199,6 @@ function select(funcoperator) {
         )
     }
     display = memory[memory.length-1].result
-
-
-
-
-    // if (memory[0]) {
-    //     // if you’re calculating based on something that itself was succesfully calculated with operate()
-    //     if (memory[memory.length-1].result !== undefined) {
-    //         storeVars(memory[memory.length-1].result, memory[memory.length-1].pressed, display, funcoperator);
-    //         display = memory[memory.length-1].result;
-    //     }
-    //     // if you just entered the first thing
-    //     else if (memory[memory.length-1].pressed !== '=') {
-    //         storeVars(memory[memory.length-1].operandx, memory[memory.length-1].pressed, display, funcoperator)
-    //         display = memory[memory.length-1].result
-    //     }
-    //     // if you just evaluated something with =
-    //     else {
-    //         storeVars(display,undefined,undefined,funcoperator)
-    //     }
-    // }
-    // // if you’re putting in the first thing    
-    // else {
-    //     storeVars(display,undefined,undefined, opclicked)
-    // }
     displayBox.textContent = display;
     firstDigitOperating = true;
 }
@@ -228,6 +208,9 @@ plusMinusBox.addEventListener('click', () => {
     selectPlusMinus();
 })
 function selectPlusMinus() {
+    display = -Number(display)*100;
+    display = display/100
+    displayBox.textContent = display;
 }
 
 const percentageBox = document.querySelector('#percentage');
@@ -235,7 +218,8 @@ percentageBox.addEventListener('click', () => {
     selectPercentage();
 })
 function selectPercentage() {
-    
+    display = Number(display) * 0.01;
+    displayBox.textContent = display;
 }
 
 //EQUALS EVENT LISTENER + FUNCTION
@@ -245,21 +229,16 @@ equalsBox.addEventListener('click', () => {
 });
 function selectEquals() {
     if(memory[0]) {
-        if (memory[memory.length-1].pressed === '=') {
-            for (i = memory.length-1; i >= 0; i--) {
-                if (memory[i].pressed !== '=') {
-                    storeVars(
-                        memory[memory.length-1].result,
-                        memory[i].pressed,
-                        // this is all jacked up… used to take it at i…
-                        memory[memory.length-1].operandy,
-                        operate(memory[i].pressed, memory[memory.length-1].result, memory[i].operandy),
-                        '='
-                    );
-                    break
-                }
-            }
-        }
+        if (memory[memory.length-1].pressed === '=' ||
+            memory[memory.length-1].pressed === 'clr') {
+            storeVars(
+                display,
+                memory[memory.length-1].operator,
+                memory[memory.length-1].operandy,
+                operate(memory[memory.length-1].operator, display, memory[memory.length-1].operandy),
+                '='
+            );
+        }   
         else {
             storeVars(
                 memory[memory.length-1].result,
@@ -270,45 +249,48 @@ function selectEquals() {
             );
         }
         display = memory[memory.length-1].result;
-        displayBox.textContent = display;
     }
-
-
-
-
-    // if (memory[0]) {
-    //     if (memory[memory.length-1].pressed !== '=') {
-    //         if (memory[memory.length-1].result !== undefined) {
-    //             storeVars(memory[memory.length-1].result, memory[memory.length-1].pressed, display, '=')
-    //         }
-    //         else {
-    //             storeVars(memory[memory.length-1].operandx, memory[memory.length-1].pressed, display, '=')
-    //         }
-    //     }
-    //     else {
-    //         for (i = memory.length-1; i >= 0; i--) {
-    //             if (memory[i].pressed !== "=") {
-    //                 storeVars(memory[memory.length-1].result, memory[i].pressed, memory[memory.length-1].operandy, '=')
-    //                 break
-    //             }
-    //         }
-    //     }
-    //     display = memory[memory.length-1].result;
-    //     displayBox.textContent = display;
-    // }
-    // what happens if i…
-    // firstDigitOperating = 1;
+    displayBox.textContent = display;
 }
+
+
 
 //CLEAR EVENT LISTENER FUNCTION (is this what we want it to do…?)
 const clearBox = document.querySelector('#clear');
 clearBox.addEventListener('click', () => {
-    memory = []
-    clearDisplay();
-    displayBox.textContent = display;
+    if (allClear) {
+        memory = []
+        clearDisplay();
+        displayBox.textContent = display;
+    }
+    else {
+        clearVars();
+        clearDisplay();
+        displayBox.textContent = display;
+        allClear = true
+        clearBox.textContent = "AC"
+    }
 })
 function clearDisplay() {
     display = "0"
+}
+function clearVars() {
+    if (memory[0]) {
+        let saveOp = memory[memory.length-1].operator;
+        let saveY = memory[memory.length-1].operandy;
+        memory = [];
+        storeVars(
+            undefined,
+            saveOp,
+            saveY,
+            saveY,
+            'clr',
+        );
+    }
+}
+function allClearToClear() {
+    clearBox.textContent = "C"
+    allClear = false
 }
 
 // FUNCTION THAT ADDS SELECTION TO DISPLAY
@@ -316,23 +298,15 @@ function clearDisplay() {
 // value needs to reset upon pressing…
 // might need a toggle variable…
 function addSelectionToDisplay(selection) {
+    if (memory[0]) {
+        if (memory[memory.length-1].pressed === '=') {
+            clearVars();
+            clearDisplay();
+        }
+    }
     if (firstDigitOperating) {
         clearDisplay();
         firstDigitOperating = 0;
-        // if (memory[0]) {
-        //     if (memory[memory.length-1].pressed = "=") {
-        //         // im not sure this works because selectEquals() never stores whats on the display (which makes sense…)
-        //         // but if I made it do that in specific instances, it would essentially be the same functionality as pressing “clear”
-        //         // but not all clear
-        //         // note: clear but not all clear on the apple mac calc stores the display and the operator that’s it. So when you press equals again
-        //         // you’re technically doing a brand new operation…
-        //         // look again, it works weird!
-                
-
-        //         // THIS BROKE EVERYTHIGN!
-        //         storeVars(undefined, memory[memory.length-1].operator, memory[memory.length-1].operandy, '=')
-        //     }
-        // }
     }
     if (display === "0" || display === -0) {
         if ((display === "0" || display === -0) & selection === '.') {
@@ -341,11 +315,13 @@ function addSelectionToDisplay(selection) {
             display = selection;
         }
         displayBox.textContent = display;
+        allClearToClear();
     } else {
         display = display.toString();
         if (selection !== "." || display.indexOf('.') === -1) {
             display = display.concat(selection);
             displayBox.textContent = display;
+            allClearToClear();
         }
     }
 }

@@ -8,48 +8,37 @@
     <link rel="stylesheet" href="app/css/styles.css">
     <title>Calculator</title>
 </head>
-<div id="container">
-    <div id="calculator">
-        <div id="display"></div>
-        <div class="button" id="backspace">←</div>
-        <div class="button" id="clear">AC</div>
-        <div class="button" id="plusminus">+/-</div>
-        <div class="button" id="percentage">%</div>
-        <div class="button" id="divide">÷</div>
-        <div class="button" id="seven">7</div>
-        <div class="button" id="eight">8</div>
-        <div class="button" id="nine">9</div>
-        <div class="button" id="multiply">×</div>
-        <div class="button" id="four">4</div>
-        <div class="button" id="five">5</div>
-        <div class="button" id="six">6</div>
-        <div class="button" id="minus">–</div>
-        <div class="button" id="one">1</div>
-        <div class="button" id="two">2</div>
-        <div class="button" id="three">3</div>
-        <div class="button" id="plus">+</div>
-        <div class="button" id="zero">0</div>
-        <div class="button" id="decimal">.</div>
-        <div class="button" id="equals">=</div>
-    </div>
-    <div id="tempbuttons">
-        <button id="exponent">Exponent (x^y)</button><br>
-        <button id="yroot">Y root X</button><br>
-        <button id="ee">EE</button><br>
-        <button id="squared">x^2</button>
-        <button id="sqrt">sqrt</button>
-        <button id="cubed">x^3</button>
-        <button id="inverse">1/x</button>
-        <button id="log10">log10</button>
-        <button id="ln">nat log</button>
-        <button id="sin">sin</button>
-        <button id="cos">cos</button>
-        <button id="tan">tan</button>
-        <button id="e">e</button>
-        <button id="pi">π</button>
-    </div>
-</div>
+<script src="app/js/fitty.min.js"></script>
+<script>
+    fitty('#display');
+</script>
 <body>
+    <div id="container">
+        <div id="calculator">
+            <div id="displayContainer">
+                <div id = "display"></div>
+            </div>
+            <div class="button" id="clear">AC</div>
+            <div class="button" id="plusminus">+/-</div>
+            <div class="button" id="percentage">%</div>
+            <div class="button" id="divide">÷</div>
+            <div class="button" id="seven">7</div>
+            <div class="button" id="eight">8</div>
+            <div class="button" id="nine">9</div>
+            <div class="button" id="multiply">×</div>
+            <div class="button" id="four">4</div>
+            <div class="button" id="five">5</div>
+            <div class="button" id="six">6</div>
+            <div class="button" id="minus">–</div>
+            <div class="button" id="one">1</div>
+            <div class="button" id="two">2</div>
+            <div class="button" id="three">3</div>
+            <div class="button" id="plus">+</div>
+            <div class="button" id="zero">0</div>
+            <div class="button" id="decimal">.</div>
+            <div class="button" id="equals">=</div>
+        </div>
+    </div>
     <script src="app/js/scripts.js"></script>
 </body>
 </html>
