@@ -8,12 +8,9 @@
     <link rel="stylesheet" href="app/css/styles.css">
     <title>Calculator</title>
 </head>
-<script src="app/js/fitty.min.js"></script>
-<script>
-    fitty('#display');
-</script>
 <body>
     <div id="container">
+        <!-- <img src="images/apple-iphone-5s.svg" width="500"> -->
         <div id="calculator">
             <div id="displayContainer">
                 <div id = "display"></div>
@@ -40,5 +37,12 @@
         </div>
     </div>
     <script src="app/js/scripts.js"></script>
+    <script src="app/js/fitty.min.js"></script>
+    <script>
+        fitty('#display', {
+            minSize: 12,
+            maxSize: 100,
+        });
+    </script>
 </body>
 </html>

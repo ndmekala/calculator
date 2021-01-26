@@ -1,5 +1,6 @@
 body {
     font-family: 'Fira Sans', sans-serif;
+    background-color: #FAF0DC;
 }
 
 #container {
@@ -7,8 +8,11 @@ body {
     width: auto;
     height: auto;
     /* this will change with diff. size */
-    grid-template-columns: 20vw 60vw 20vw;
-    grid-template-rows: 20vh 60vh 20vh;
+    grid-template-columns: auto 400px auto;
+    grid-template-rows: 25% 650px auto;
+    background-image: url(apple-iphone-5s.svg);
+    background-repeat: no-repeat;
+    background-size: 500px 900px;
 }
 
 #calculator {
@@ -19,8 +23,9 @@ body {
     display: grid;
     /* this will change depending on size*/
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr  1fr  1fr  1fr 1fr;
+    grid-template-rows: auto 87.5px  87.5px  87.5px  87.5px 87.5px;
     background-color: #0B4141;
+    border: 25px solid black;
   }
 
 
@@ -31,7 +36,6 @@ body {
     grid-row-start: 1;
     grid-row-end: 2;
     text-align: right;
-    font-size: 50px;
     color: #FAF0DC;
     position: relative;
 }
