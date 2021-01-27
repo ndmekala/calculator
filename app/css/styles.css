@@ -1,14 +1,22 @@
 body {
     font-family: 'Fira Sans', sans-serif;
+    background-color: #FAF0DC;
+    width: 100vw;
+    height: 100vh;
 }
 
 #container {
     display: grid;
-    width: auto;
-    height: auto;
+    width: 100vw;
+    height: 100vh;
     /* this will change with diff. size */
-    grid-template-columns: 20vw 60vw 20vw;
-    grid-template-rows: 20vh 60vh 20vh;
+    grid-template-columns: auto 350px auto;
+    grid-template-rows: 30% 650px 50%;
+    background-image: url(apple-iphone-5s.svg);
+    background-repeat: no-repeat;
+    background-size: 500px 900px;
+    background-position: center;
+    background-attachment: fixed;
 }
 
 #calculator {
@@ -19,25 +27,26 @@ body {
     display: grid;
     /* this will change depending on size*/
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr  1fr  1fr  1fr 1fr;
+    grid-template-rows: auto 87.5px  87.5px  87.5px  87.5px 87.5px;
     background-color: #0B4141;
   }
 
-#display {
-    grid-column-start: 1;
-    grid-column-end: 4;
-    grid-row-start: 1;
-    grid-row-end: 2;
-    text-align: right;
-    font-size: 50px;
-    color: #FAF0DC;
-}
 
-#backspace {
-    grid-column-start: 4;
+
+#displayContainer {
+    grid-column-start: 1;
     grid-column-end: 5;
     grid-row-start: 1;
     grid-row-end: 2;
+    text-align: right;
+    color: #FAF0DC;
+    position: relative;
+}
+
+#display {
+    position: absolute;
+    bottom: 0;
+    right: 5px;
 }
 
 #zero {
@@ -58,13 +67,10 @@ body {
     border-radius: 50%;
 }
 
-#tempbuttons {
-    grid-column-start: 1;
-    grid-column-end: 2;
-    grid-row-start: 2;
-    grid-row-end: 3;
-}
-
 #multiply, #divide, #minus, #plus, #equals {
     background-color: #FF6864
+}
+
+svg {
+    width: 100%
 }
