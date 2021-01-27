@@ -147,7 +147,7 @@ window.addEventListener('keydown', event => {
     if (event.key === '*') {
         select('*')
     }
-    if (event.keyCode === '/') {
+    if (event.key === '/') {
         select('/')
     }
     if (event.key === '=') {

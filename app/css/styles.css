@@ -10,28 +10,32 @@ body {
     width: 100vw;
     height: 100vh;
     /* this will change with diff. size */
-    grid-template-columns: auto 350px auto;
-    grid-template-rows: 30% 650px 50%;
-    background-image: url(apple-iphone-5s.svg);
-    background-repeat: no-repeat;
-    background-size: 500px 900px;
-    background-position: center;
-    background-attachment: fixed;
+    grid-template-columns: auto 400px auto;
+    grid-template-rows: 30% 800px 50%;
 }
 
 #calculator {
-    grid-column-start: 2;
-    grid-column-end: 3;
-    grid-row-start: 2;
-    grid-row-end: 3;
     display: grid;
     /* this will change depending on size*/
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: auto 87.5px  87.5px  87.5px  87.5px 87.5px;
     background-color: #0B4141;
+    width: 350px;
+    height: 650px;
   }
 
-
+#calculatorContainer {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    background-color: pink;
+    background-image: url(apple-iphone-5s.svg);
+    background-repeat: no-repeat;
+    background-size: 300px 300px;
+    background-position: center;
+    background-attachment: fixed;
+}
 
 #displayContainer {
     grid-column-start: 1;
@@ -61,16 +65,14 @@ body {
 
 .button {
     text-align: center;
+    font-size: 35px;
     margin: 5%;
-    padding: 50% 0 0 0;
+    vertical-align: middle;
     background-color: #FAF0DC;
     border-radius: 50%;
+    color: #0B4141;
 }
 
 #multiply, #divide, #minus, #plus, #equals {
     background-color: #FF6864
-}
-
-svg {
-    width: 100%
 }
