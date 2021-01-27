@@ -1,18 +1,22 @@
 body {
     font-family: 'Fira Sans', sans-serif;
     background-color: #FAF0DC;
+    width: 100vw;
+    height: 100vh;
 }
 
 #container {
     display: grid;
-    width: auto;
-    height: auto;
+    width: 100vw;
+    height: 100vh;
     /* this will change with diff. size */
-    grid-template-columns: auto 400px auto;
-    grid-template-rows: 25% 650px auto;
+    grid-template-columns: auto 350px auto;
+    grid-template-rows: 30% 650px 50%;
     background-image: url(apple-iphone-5s.svg);
     background-repeat: no-repeat;
     background-size: 500px 900px;
+    background-position: center;
+    background-attachment: fixed;
 }
 
 #calculator {
@@ -25,7 +29,6 @@ body {
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: auto 87.5px  87.5px  87.5px  87.5px 87.5px;
     background-color: #0B4141;
-    border: 25px solid black;
   }
 
 
