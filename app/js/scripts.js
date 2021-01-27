@@ -7,6 +7,12 @@ let allClear = true;
 let displayBox = document.querySelector('#display')
 displayBox.textContent = display;
 
+//REPOSITORY LINK
+const repository = document.querySelector('#home')
+repository.addEventListener('click', () => {
+    window.location.href = 'https://github.com/ndmekala/calculator';
+})
+
 
 // OPERATION FUNCTIONS
 function add(x, y) {
