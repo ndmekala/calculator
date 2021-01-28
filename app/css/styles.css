@@ -50,8 +50,8 @@ body {
 #displayArea {
     position: absolute;
     bottom: 0;
-    right: 20px;
-    width: 350px;
+    right: 10px;
+    width: 323px;
 }
 
 #display {
@@ -70,11 +70,15 @@ body {
 .button {
     text-align: center;
     font-size: 35px;
-    margin: 5%;
+    margin: 5px;
     padding: 25px 0 0 0;
     background-color: #FAF0DC;
     border-radius: 98px;
     color: #0B4141;
+}
+
+.selected {
+    
 }
 
 .button:hover {
