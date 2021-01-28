@@ -9,22 +9,21 @@ body {
     display: grid;
     width: 100vw;
     height: 100vh;
-    /* this will change with diff. size */
     grid-template-columns: auto 450px auto;
-    grid-template-rows: 100px 950px auto;
+    grid-template-rows: 100px 960px auto;
 }
 
 #calculator {
     display: grid;
-    /* this will change depending on size*/
+    padding: 0 24px 10px 24px;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: auto 98px  98px  98px  98px 98px;
+    grid-template-rows: auto 86px  86px  86px  86px 86px;
     background-color: #0B4141;
     position: relative;
     left: 32px;
-    bottom: -137px;
-    width: 392px;
-    height: 683px;
+    bottom: -142px;
+    width: 344px;
+    height: 682px;
   }
 
 #calculatorContainer {
@@ -34,7 +33,7 @@ body {
     grid-row-end: 3;
     background-image: url(../../images/apple-iphone-5s.svg);
     background-repeat: no-repeat;
-    background-size: 450px 950px;
+    background-size: 450px 960px;
     background-position: center;
 }
 
@@ -78,20 +77,26 @@ body {
     color: #0B4141;
 }
 
+.button:hover {
+    opacity: 0.8;
+}
+
 #home {
     position: relative;
-    left: 196px;
-    bottom: -167px;
-    width: 64px;
-    height: 64px;
+    left: 192px;
+    bottom: -158px;
+    width: 72px;
+    height: 72px;
 }
 
 #home:hover {
     background-image: url(../../images/GitHub-Mark-Light-64px.png);
+    background-size: 72px 72px;
+
 }
 
 #multiply, #divide, #minus, #plus, #equals {
-    background-color: #FF6864
+    background-color: #FF6864;
 }
 
 @media (max-width: 40em) {
