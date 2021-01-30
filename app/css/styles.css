@@ -77,10 +77,6 @@ body {
     color: #FAF0DC;
 }
 
-.selected {
-    
-}
-
 .button:hover {
     opacity: 0.8;
 }
@@ -98,19 +94,21 @@ body {
     background-size: 72px 72px;
 
 }
-/* MAKE THIS CLASS WORK! */
+
 .operator {
     background-color: #FF6864;
+    transition: 1s;
 }
 
 #clear, #plusminus, #percentage {
     background-color: #f5e2bc;
     color: #0f4141;
 }
-/* Y U NO WORK?? */
+
 .selected {
     background-color: #FAF0DC !important;
     color: #FF6864 !important;
+    transition: 1s;
 }
 
 @media (max-width: 475px) {

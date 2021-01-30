@@ -189,21 +189,35 @@ divideBox.addEventListener('click', () => {
     select('/')
 });
 
+function highlightSelectedOperator(operator) {
+    if (operator === '+') {
+        plusBox.classList.add('selected');
+        minusBox.classList.remove('selected');
+        multiplyBox.classList.remove('selected');
+        divideBox.classList.remove('selected');
+    }
+    else if (operator === '-') {
+        plusBox.classList.remove('selected');
+        minusBox.classList.add('selected');
+        multiplyBox.classList.remove('selected');
+        divideBox.classList.remove('selected');
+    }
+    else if (operator === '*') {
+        plusBox.classList.remove('selected');
+        minusBox.classList.remove('selected');
+        multiplyBox.classList.add('selected');
+        divideBox.classList.remove('selected');
+    }
+    else if (operator === '/') {
+        plusBox.classList.remove('selected');
+        minusBox.classList.remove('selected');
+        multiplyBox.classList.remove('selected');
+        divideBox.classList.add('selected');
+    }
+}
+
 function select(funcoperator) {
-    // add “selected” style + animation to the proper button
-    // remove "selected" style from all other buttons
-    if (funcoperator = '+') {
-        // plusBox.
-    }
-    else if (funcoperator = '-') {
-        
-    }
-    else if (funcoperator === '*') {
-
-    }
-    else if (funcoperator === '/') {
-
-    }
+    highlightSelectedOperator(funcoperator);
     if (!memory[0] || 
          memory[memory.length-1].pressed === '=' || 
          memory[memory.length-1].pressed === 'clr') {
