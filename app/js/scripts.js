@@ -171,7 +171,6 @@ window.addEventListener('keydown', event => {
 })
 
 // EVENT LISTENERS AND FUNCTIONS FOR OPERATION BUTTONS
-// Idea is to also make these highlight the chosen button (like iOS)
 const plusBox = document.querySelector('#plus');
 plusBox.addEventListener('click', () => {
     select('+');
@@ -268,7 +267,10 @@ equalsBox.addEventListener('click', () => {
     selectEquals();
 });
 function selectEquals() {
-    // remove selected id on all operator buttons
+    plusBox.classList.remove('selected');
+    minusBox.classList.remove('selected');
+    multiplyBox.classList.remove('selected');
+    divideBox.classList.remove('selected');
     if(memory[0]) {
         if (memory[memory.length-1].pressed === '=' ||
             memory[memory.length-1].pressed === 'clr') {
@@ -307,7 +309,11 @@ function selectClear() {
         memory = []
         clearDisplay();
         displayBox.textContent = display;
-        // reset graphics on operator buttons
+        plusBox.classList.remove('selected');
+        minusBox.classList.remove('selected');
+        multiplyBox.classList.remove('selected');
+        divideBox.classList.remove('selected');
+        // Right now if you selected minus then clear (but not AC) minus would still be highlighted. that right?
     }
     else {
         clearVars();
@@ -354,7 +360,10 @@ function addSelectionToDisplay(selection) {
     if (firstDigitOperating) {
         clearDisplay();
         firstDigitOperating = 0;
-        // remove selected id on all operator buttons
+        plusBox.classList.remove('selected');
+        minusBox.classList.remove('selected');
+        multiplyBox.classList.remove('selected');
+        divideBox.classList.remove('selected');
     }
     if (display === "0" || display === -0) {
         if ((display === "0" || display === -0) & selection === '.') {
@@ -373,6 +382,3 @@ function addSelectionToDisplay(selection) {
         }
     }
 }
-
-// there’s some seriously weird behavior.
-// for example: operand x and y remain when you go from pressing enter a bunch to entering numbers. so if you select enter again… IT HAS IDEAS
