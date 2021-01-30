@@ -5,7 +5,7 @@ let allClear = true;
 
 
 let displayBox = document.querySelector('#display')
-displayBox.textContent = display;
+updateDisplay();
 
 //REPOSITORY LINK
 const repository = document.querySelector('#home')
@@ -238,7 +238,7 @@ function select(funcoperator) {
         )
     }
     display = memory[memory.length-1].result
-    displayBox.textContent = display;
+    updateDisplay();
     firstDigitOperating = true;
 }
 
@@ -249,7 +249,7 @@ plusMinusBox.addEventListener('click', () => {
 function selectPlusMinus() {
     display = -Number(display)*100;
     display = display/100
-    displayBox.textContent = display;
+    updateDisplay();
 }
 
 const percentageBox = document.querySelector('#percentage');
@@ -258,7 +258,7 @@ percentageBox.addEventListener('click', () => {
 })
 function selectPercentage() {
     display = Number(display) * 0.01;
-    displayBox.textContent = display;
+    updateDisplay();
 }
 
 //EQUALS EVENT LISTENER + FUNCTION
@@ -293,7 +293,7 @@ function selectEquals() {
         }
         display = memory[memory.length-1].result;
     }
-    displayBox.textContent = display;
+    updateDisplay();
 }
 
 
@@ -308,7 +308,7 @@ function selectClear() {
     if (allClear) {
         memory = []
         clearDisplay();
-        displayBox.textContent = display;
+        updateDisplay();
         plusBox.classList.remove('selected');
         minusBox.classList.remove('selected');
         multiplyBox.classList.remove('selected');
@@ -318,7 +318,7 @@ function selectClear() {
     else {
         clearVars();
         clearDisplay();
-        displayBox.textContent = display;
+        updateDisplay();
         allClear = true
         clearBox.textContent = "AC"
     }
@@ -371,20 +371,27 @@ function addSelectionToDisplay(selection) {
         } else {
             display = selection;
         }
-        displayBox.textContent = display;
+        updateDisplay();
         allClearToClear();
     } else {
         display = display.toString();
         if (selection !== "." || display.indexOf('.') === -1) {
             display = display.concat(selection);
-            displayBox.textContent = display;
+            updateDisplay();
             allClearToClear();
         }
     }
 }
 
+function updateDisplay() {
+    if (display !== display) {
+        display = "Error!";
+    }
+    displayBox.textContent = display;
+}
+
 function deleteLast() {
     display = display.toString();
     display = display.slice(0, -1);
-    displayBox.textContent = display;
+    updateDisplay();
 }
