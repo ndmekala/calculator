@@ -382,3 +382,9 @@ function addSelectionToDisplay(selection) {
         }
     }
 }
+
+function deleteLast() {
+    display = display.toString();
+    display = display.slice(0, -1);
+    displayBox.textContent = display;
+}
