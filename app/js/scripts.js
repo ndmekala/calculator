@@ -144,6 +144,9 @@ window.addEventListener('keydown', event => {
     if (event.key === '.') {
         addSelectionToDisplay('.');
     }
+    if (event.key === '%') {
+        selectPercentage();
+    }
     if (event.key === '+') {
         select('+');
     }
@@ -161,6 +164,9 @@ window.addEventListener('keydown', event => {
     }
     if (event.key === 'Enter') {
         selectEquals();
+    }
+    if (event.key === 'c') {
+        selectClear();
     }
 })
 
@@ -184,6 +190,20 @@ divideBox.addEventListener('click', () => {
 });
 
 function select(funcoperator) {
+    // add “selected” style + animation to the proper button
+    // remove "selected" style from all other buttons
+    if (funcoperator = '+') {
+        // plusBox.
+    }
+    else if (funcoperator = '-') {
+        
+    }
+    else if (funcoperator === '*') {
+
+    }
+    else if (funcoperator === '/') {
+
+    }
     if (!memory[0] || 
          memory[memory.length-1].pressed === '=' || 
          memory[memory.length-1].pressed === 'clr') {
@@ -234,6 +254,7 @@ equalsBox.addEventListener('click', () => {
     selectEquals();
 });
 function selectEquals() {
+    // remove selected id on all operator buttons
     if(memory[0]) {
         if (memory[memory.length-1].pressed === '=' ||
             memory[memory.length-1].pressed === 'clr') {
@@ -264,10 +285,15 @@ function selectEquals() {
 //CLEAR EVENT LISTENER FUNCTION (is this what we want it to do…?)
 const clearBox = document.querySelector('#clear');
 clearBox.addEventListener('click', () => {
+    selectClear();
+})
+
+function selectClear() {
     if (allClear) {
         memory = []
         clearDisplay();
         displayBox.textContent = display;
+        // reset graphics on operator buttons
     }
     else {
         clearVars();
@@ -276,7 +302,8 @@ clearBox.addEventListener('click', () => {
         allClear = true
         clearBox.textContent = "AC"
     }
-})
+}
+
 function clearDisplay() {
     display = "0"
 }
@@ -313,6 +340,7 @@ function addSelectionToDisplay(selection) {
     if (firstDigitOperating) {
         clearDisplay();
         firstDigitOperating = 0;
+        // remove selected id on all operator buttons
     }
     if (display === "0" || display === -0) {
         if ((display === "0" || display === -0) & selection === '.') {

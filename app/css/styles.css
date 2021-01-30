@@ -98,8 +98,8 @@ body {
     background-size: 72px 72px;
 
 }
-
-#multiply, #divide, #minus, #plus, #equals {
+/* MAKE THIS CLASS WORK! */
+.operator {
     background-color: #FF6864;
 }
 
@@ -107,13 +107,13 @@ body {
     background-color: #f5e2bc;
     color: #0f4141;
 }
-
-#selected {
-    background-color: #FAF0DC;
-    color: #FF6864;
+/* Y U NO WORK?? */
+.selected {
+    background-color: #FAF0DC !important;
+    color: #FF6864 !important;
 }
 
-@media (max-width: 40em) {
+@media (max-width: 475px) {
     body {
         background-color:#0B4141;
     }
@@ -133,6 +133,7 @@ body {
 
     #calculator {
         grid-template-rows: 1fr 21vw 21vw 21vw 21vw 21vw;
+        padding: 0 3vw 0 3vw;
         position: absolute;
         bottom: 0;
         left: auto;
@@ -142,9 +143,13 @@ body {
     }
 
     .button {
-        padding: 25% 0 0 0;
+        padding: 22% 0 0 0;
         font-size: 9.2vw;
         margin: 5px;
+    }
+
+    #zero {
+        padding: 10% 0 0 14%;
     }
 
     #home {
@@ -154,7 +159,7 @@ body {
 
     #displayArea {
         right: 3vw;
-        width: 90vw;
+        width: 78vw;
     }
 
 }
