@@ -84,13 +84,13 @@ body {
 #home {
     position: relative;
     left: 192px;
-    bottom: -158px;
+    bottom: -157px;
     width: 72px;
     height: 72px;
 }
 
 #home:hover {
-    background-image: url(../../images/GitHub-Mark-Light-64px.png);
+    background-image: url(../../images/GitHub-Mark-Light-120px-plus.png);
     background-size: 72px 72px;
 
 }
@@ -130,24 +130,24 @@ body {
     }
 
     #calculator {
-        grid-template-rows: 1fr 21vw 21vw 21vw 21vw 21vw;
+        grid-template-rows: 1fr 22vw 22vw 22vw 22vw 22vw;
         padding: 0 3vw 0 3vw;
         position: absolute;
         bottom: 0;
         left: auto;
         right: auto;
-        width: 84vw;
+        width: 88vw;
         margin: 0 0 0 0;
     }
 
     .button {
-        padding: 22% 0 0 0;
+        padding: 4vw 0 0 0;
         font-size: 9.2vw;
         margin: 5px;
     }
 
     #zero {
-        padding: 10% 0 0 14%;
+        padding: 4vw 0 0 6.4vw;
     }
 
     #home {
