@@ -2,6 +2,7 @@ let display = "0";
 let memory = []
 let firstDigitOperating = false;
 let allClear = true;
+let editing = true;
 
 
 let displayBox = document.querySelector('#display')
@@ -168,6 +169,9 @@ window.addEventListener('keydown', event => {
     if (event.key === 'c') {
         selectClear();
     }
+    if (event.key === 'Backspace') {
+        deleteLast();
+    }
 })
 
 // EVENT LISTENERS AND FUNCTIONS FOR OPERATION BUTTONS
@@ -216,6 +220,7 @@ function highlightSelectedOperator(operator) {
 }
 
 function select(funcoperator) {
+    editing = true;
     highlightSelectedOperator(funcoperator);
     if (!memory[0] || 
          memory[memory.length-1].pressed === '=' || 
@@ -249,6 +254,7 @@ plusMinusBox.addEventListener('click', () => {
 function selectPlusMinus() {
     display = -Number(display)*100;
     display = display/100
+    editing = false;
     updateDisplay();
 }
 
@@ -258,6 +264,7 @@ percentageBox.addEventListener('click', () => {
 })
 function selectPercentage() {
     display = Number(display) * 0.01;
+    editing = false;
     updateDisplay();
 }
 
@@ -293,6 +300,7 @@ function selectEquals() {
         }
         display = memory[memory.length-1].result;
     }
+    editing = false;
     updateDisplay();
 }
 
@@ -305,6 +313,7 @@ clearBox.addEventListener('click', () => {
 })
 
 function selectClear() {
+    editing = true;
     if (allClear) {
         memory = []
         clearDisplay();
@@ -391,7 +400,12 @@ function updateDisplay() {
 }
 
 function deleteLast() {
-    display = display.toString();
-    display = display.slice(0, -1);
-    updateDisplay();
+    if (!firstDigitOperating & editing) {
+        display = display.toString();
+        display = display.slice(0, -1);
+        if (!display) {
+        display = 0;
+        }
+        updateDisplay();
+    }
 }
