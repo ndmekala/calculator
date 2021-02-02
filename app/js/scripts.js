@@ -394,7 +394,7 @@ function updateDisplay() {
     if (display !== display) {
         display = "Error!";
     }
-    else if (display % 1 !== 0 || display.toString().indexOf('.') !== -1 || display.toString().length > 13) {
+    else if (Number(display+'e3') % 1 !== 0 || display.toString().length > 12) {
         display = parseFloat(display).toExponential(6);
     }
     displayBox.textContent = display;
