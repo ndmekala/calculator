@@ -15,14 +15,14 @@ body {
 
 #calculator {
     display: grid;
-    padding: 0 24px 10px 24px;
+    padding: 0 18px 10px 18px;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: auto 86px  86px  86px  86px 86px;
+    grid-template-rows: auto 89px  89px  89px  89px 89px;
     background-color: #0B4141;
     position: relative;
     left: 32px;
     bottom: -142px;
-    width: 344px;
+    width: 356px;
     height: 682px;
   }
 
@@ -97,7 +97,6 @@ body {
 
 .operator {
     background-color: #FF6864;
-    transition: 1s;
 }
 
 #clear, #plusminus, #percentage {
@@ -130,13 +129,13 @@ body {
     }
 
     #calculator {
-        grid-template-rows: 1fr 22vw 22vw 22vw 22vw 22vw;
-        padding: 0 3vw 0 3vw;
+        grid-template-rows: 1fr 23vw 23vw 23vw 23vw 23vw;
+        padding: 0 2vw 3vw 2vw;
         position: absolute;
         bottom: 0;
         left: auto;
         right: auto;
-        width: 88vw;
+        width: 92vw;
         margin: 0 0 0 0;
     }
 
