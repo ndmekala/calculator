@@ -395,7 +395,7 @@ function updateDisplay() {
         display = "Error!";
     }
     else if (Number(display+'e3') % 1 !== 0 || display.toString().length > 12) {
-        display = parseFloat(display).toExponential(6);
+        display = parseFloat(display).toExponential(5);
     }
     displayBox.textContent = display;
 }
