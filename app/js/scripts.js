@@ -395,7 +395,7 @@ function updateDisplay() {
         display = "Error!";
     }
     else if (display % 1 !== 0 || display.toString().indexOf('.') !== -1 || display.toString().length > 13) {
-        display = parseFloat(display).toExponential(7);
+        display = parseFloat(display).toExponential(6);
     }
     displayBox.textContent = display;
 }
