@@ -3,8 +3,6 @@ let memory = []
 let firstDigitOperating = false;
 let allClear = true;
 let editing = true;
-
-
 let displayBox = document.querySelector('#display')
 displayBox.textContent = display;
 
@@ -19,15 +17,12 @@ repository.addEventListener('click', () => {
 function add(x, y) {
     return (100*x + 100*y)/100;
 }
-
 function subtract(x, y) {
     return (100*x - 100*y)/100;
 }
-
 function multiply(x, y) {
     return (100*x * 100*y)/(100*100);
 }
-
 function divide(x, y) {
     return 100 * x / (100 * y);
 }
@@ -49,6 +44,7 @@ function operate(operator, x, y) {
     }
 }
 
+// MEMORY STORAGE
 function storeVars(a, b, c, d, e) {
     memory.push({
         operandx: a,
@@ -60,7 +56,20 @@ function storeVars(a, b, c, d, e) {
 }
 
 // EVENT LISTENERS FOR NUMBER BUTTONS
-//Why do I get the error that display.concat is not a function specifically when 
+
+// Hi @ndmekala++ great job on the calculator project and congrats on nearing the end of foundations. I 
+// really like the design of your calculator - the phone on 
+// computer / phone on phone is cool. I see 
+// that you have added keyboard support as well!
+// Looking at your code I think you could consider using a 
+// number class for the number buttons so you can query them all,
+// and then loop over them and attach the event listeners
+
+
+// From javascript drumkit
+// const keys = Array.from(document.querySelectorAll('.key));
+// keys.forEach(key => key.addEventListener('transitionend', removeTransition))
+
 const one = document.querySelector('#one');
 one.addEventListener('click', () => {
     addSelectionToDisplay('1');
@@ -228,7 +237,7 @@ function select(funcoperator) {
         )
     }
     else {
-        if (funcoperator !== memory[memory.length-1].pressed) {
+        if (!firstDigitOperating) {
             storeVars(
                 memory[memory.length-1].result,
                 memory[memory.length-1].pressed,
@@ -300,9 +309,7 @@ function selectEquals() {
     updateDisplay();
 }
 
-
-
-//CLEAR EVENT LISTENER FUNCTION (is this what we want it to do…?)
+//CLEARING EVENT LISTENERS + FUNCTIONS
 const clearBox = document.querySelector('#clear');
 clearBox.addEventListener('click', () => {
     selectClear();
@@ -318,7 +325,6 @@ function selectClear() {
         minusBox.classList.remove('selected');
         multiplyBox.classList.remove('selected');
         divideBox.classList.remove('selected');
-        // Right now if you selected minus then clear (but not AC) minus would still be highlighted. that right?
     }
     else {
         clearVars();
@@ -326,6 +332,10 @@ function selectClear() {
         displayBox.textContent = display;
         allClear = true
         clearBox.textContent = "AC"
+        plusBox.classList.remove('selected');
+        minusBox.classList.remove('selected');
+        multiplyBox.classList.remove('selected');
+        divideBox.classList.remove('selected');
     }
 }
 
@@ -351,10 +361,7 @@ function allClearToClear() {
     allClear = false
 }
 
-// FUNCTION THAT ADDS SELECTION TO DISPLAY
-// need to change so that you don’t just edit a value after "=" is pressed but not sure how
-// value needs to reset upon pressing…
-// might need a toggle variable…
+// DISPLAY FUNCTIONS
 function addSelectionToDisplay(selection) {
     if (display.toString().length < 12) {
         if (memory[0]) {
@@ -396,6 +403,9 @@ function updateDisplay() {
     }
     else if (Number(display+'e3') % 1 !== 0 || display.toString().length > 12) {
         display = parseFloat(display).toExponential(5);
+    }
+    else {
+        display = Number(display);
     }
     displayBox.textContent = display;
 }
