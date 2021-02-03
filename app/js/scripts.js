@@ -55,118 +55,39 @@ function storeVars(a, b, c, d, e) {
     })
 }
 
-// EVENT LISTENERS FOR NUMBER BUTTONS
-
-// Hi @ndmekala++ great job on the calculator project and congrats on nearing the end of foundations. I 
-// really like the design of your calculator - the phone on 
-// computer / phone on phone is cool. I see 
-// that you have added keyboard support as well!
-// Looking at your code I think you could consider using a 
-// number class for the number buttons so you can query them all,
-// and then loop over them and attach the event listeners
-
-
-// From javascript drumkit
-// const keys = Array.from(document.querySelectorAll('.key));
-// keys.forEach(key => key.addEventListener('transitionend', removeTransition))
-
-const one = document.querySelector('#one');
-one.addEventListener('click', () => {
-    addSelectionToDisplay('1');
-});
-const two = document.querySelector('#two');
-two.addEventListener('click', () => {
-    addSelectionToDisplay('2');
-});
-const three = document.querySelector('#three');
-three.addEventListener('click', () => {
-    addSelectionToDisplay('3');
-});
-const four = document.querySelector('#four');
-four.addEventListener('click', () => {
-    addSelectionToDisplay('4');
-});
-const five = document.querySelector('#five');
-five.addEventListener('click', () => {
-    addSelectionToDisplay('5');
-});
-const six = document.querySelector('#six');
-six.addEventListener('click', () => {
-    addSelectionToDisplay('6');
-});
-const seven = document.querySelector('#seven');
-seven.addEventListener('click', () => {
-    addSelectionToDisplay('7');
-});
-const eight = document.querySelector('#eight');
-eight.addEventListener('click', () => {
-    addSelectionToDisplay('8');
-});
-const nine = document.querySelector('#nine');
-nine.addEventListener('click', () => {
-    addSelectionToDisplay('9');
-});
-const zero = document.querySelector('#zero');
-zero.addEventListener('click', () => {
-    addSelectionToDisplay('0');
-});
-const decimal = document.querySelector('#decimal');
-decimal.addEventListener('click', () => {
-    addSelectionToDisplay('.');
-});
+// CLICK EVENT LISTENERS FOR NUMBER BUTTONS
+const numeric = Array.from(document.querySelectorAll('.numeric'));
+numeric.forEach(button => button.addEventListener('click', () => {
+    if (button.id === 'one')        {addSelectionToDisplay('1')};
+    if (button.id === 'two')        {addSelectionToDisplay('2')};
+    if (button.id === 'three')      {addSelectionToDisplay('3')};
+    if (button.id === 'four')       {addSelectionToDisplay('4')};
+    if (button.id === 'five')       {addSelectionToDisplay('5')};
+    if (button.id === 'six')        {addSelectionToDisplay('6')};
+    if (button.id === 'seven')      {addSelectionToDisplay('7')};
+    if (button.id === 'eight')      {addSelectionToDisplay('8')};
+    if (button.id === 'nine')       {addSelectionToDisplay('9')};
+    if (button.id === 'zero')       {addSelectionToDisplay('0')};
+    if (button.id === 'decimal')    {addSelectionToDisplay('.');
+}}));
+// KEYBOARD EVENT LISTENERS
 window.addEventListener('keydown', event => {
-    if (event.key === '1') {
-        addSelectionToDisplay('1');
-    }
-    if (event.key === '2') {
-        addSelectionToDisplay('2');
-    }
-    if (event.key === '3') {
-        addSelectionToDisplay('3');
-    }
-    if (event.key === '4') {
-        addSelectionToDisplay('4');
-    }
-    if (event.key === '5') {
-        addSelectionToDisplay('5');
-    }
-    if (event.key === '6') {
-        addSelectionToDisplay('6');
-    }
-    if (event.key === '7') {
-        addSelectionToDisplay('7');
-    }
-    if (event.key === '8') {
-        addSelectionToDisplay('8');
-    }
-    if (event.key === '9') {
-        addSelectionToDisplay('9');
-    }
-    if (event.key === '0') {
-        addSelectionToDisplay('0');
-    }
-    if (event.key === '.') {
-        addSelectionToDisplay('.');
+    if (Number(event.key) ||
+        event.key === '0' ||
+        event.key === '.') {
+        addSelectionToDisplay(event.key.toString());
     }
     if (event.key === '%') {
         selectPercentage();
     }
-    if (event.key === '+') {
-        select('+');
+    if (event.key === '+' ||
+        event.key === '-' ||
+        event.key === '*' ||
+        event.key === '/') {
+        select(event.key);
     }
-    if (event.key === '-') {
-        select('-');
-    }
-    if (event.key === '*') {
-        select('*')
-    }
-    if (event.key === '/') {
-        select('/')
-    }
-    if (event.key === '=') {
-        selectEquals();
-    }
-    if (event.key === 'Enter') {
+    if (event.key === '=' ||
+        event.key === 'Enter') {
         selectEquals();
     }
     if (event.key === 'c') {
@@ -177,7 +98,7 @@ window.addEventListener('keydown', event => {
     }
 })
 
-// EVENT LISTENERS AND FUNCTIONS FOR OPERATION BUTTONS
+// CLICK EVENT LISTENERS AND FUNCTIONS FOR OPERATION BUTTONS
 const plusBox = document.querySelector('#plus');
 plusBox.addEventListener('click', () => {
     select('+');
@@ -273,7 +194,7 @@ function selectPercentage() {
     updateDisplay();
 }
 
-//EQUALS EVENT LISTENER + FUNCTION
+//EQUALS CLICK EVENT LISTENER + FUNCTION
 const equalsBox = document.querySelector('#equals');
 equalsBox.addEventListener('click', () => {
     selectEquals();
@@ -309,7 +230,7 @@ function selectEquals() {
     updateDisplay();
 }
 
-//CLEARING EVENT LISTENERS + FUNCTIONS
+//CLEARING CLICK EVENT LISTENERS + FUNCTIONS
 const clearBox = document.querySelector('#clear');
 clearBox.addEventListener('click', () => {
     selectClear();
