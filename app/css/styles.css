@@ -1,5 +1,10 @@
+@font-face {
+    src: url(../../fonts/SF-Pro-Display-Thin.otf);
+    font-family: applesf;
+}
+
 body {
-    font-family: 'Fira Sans', sans-serif;
+    font-family: applesf;
     background-color: #FAF0DC;
     width: 100vw;
     height: 100vh;
