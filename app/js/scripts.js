@@ -14,8 +14,18 @@ repository.addEventListener('click', () => {
 
 
 // OPERATION FUNCTIONS
+// Arrow functions are kind of nifty and can clean up the code a bit. They are used a lot in React and I use them almost exclusively, but there are situations when you can't/shouldn't. 
+// In certain circumstances they act a little differently than regular functions so definitely read up on them. 
+//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions
+
+//For example your add() function could be written as:
+
+//const add = (x,y) => (100*x + 100*y)/100
+
+//(100*x + 100*y)/100 is implicitly returned from the arrow function
+//you'll probably get introduced to them soon if you haven't already. I probably wouldn't even change them here, just bringing them up for you to look into
 function add(x, y) {
-    return (100*x + 100*y)/100;
+    return (100*x + 100*y)/100; //what is the purpose of the 100s? Does that handle floating point numbers better or something like that?
 }
 function subtract(x, y) {
     return (100*x - 100*y)/100;
@@ -57,7 +67,8 @@ function storeVars(a, b, c, d, e) {
 
 // CLICK EVENT LISTENERS FOR NUMBER BUTTONS
 const numeric = Array.from(document.querySelectorAll('.numeric'));
-numeric.forEach(button => button.addEventListener('click', () => {
+numeric.forEach(button => button.addEventListener('click', () => {//oh yeah you are using and arrow function here, thumbs up
+    //you could use a switch statement in here
     if (button.id === 'one')        {addSelectionToDisplay('1')};
     if (button.id === 'two')        {addSelectionToDisplay('2')};
     if (button.id === 'three')      {addSelectionToDisplay('3')};
@@ -70,7 +81,28 @@ numeric.forEach(button => button.addEventListener('click', () => {
     if (button.id === 'zero')       {addSelectionToDisplay('0')};
     if (button.id === 'decimal')    {addSelectionToDisplay('.');
 }}));
+
+//I think the above is clear and clean enough, but you could do something like this:
+
+// document.querySelectorAll('.numeric').forEach(button => button.addEventListener('click', function() {addSelectionToDisplay(this.textContent)}))
+
+//Or it would maybe be better to use <input> or <button> instead of div and then give each element a value, eg: <button id="one" class="button numeric" value="1">1</button>
+
+//document.querySelectorAll('.numeric').forEach(button => button.addEventListener('click', function() {addSelectionToDisplay(this.value)})) //Note that I didn't use an arrow function inside the event listener because then 'this' would be bound to the window if I did
+
+//or you could get fancy with event bubbling and do something like
+
+// document.querySelector('body').addEventListener('click', event => {
+//     if (!event.target.classList || !event.target.classList.contains('numeric')) {
+//         return
+//         }
+//     addSelectionToDisplay(event.target.textContent)
+// })
+
+//I'm just throwing stuff out there, what you have is plenty clear and only 14 lines of code
+
 // KEYBOARD EVENT LISTENERS
+//adding support for keyboard use is nice
 window.addEventListener('keydown', event => {
     if (Number(event.key) ||
         event.key === '0' ||
@@ -341,3 +373,4 @@ function deleteLast() {
         displayBox.textContent = display;
     }
 }
+
