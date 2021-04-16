@@ -1,0 +1,44 @@
+body {
+    font-family: Helvetica, Arial, sans-serif;
+  }
+
+#wrapper {
+    display: flex;
+    justify-content: center;
+    background-color: thistle;
+    width: 100vw;
+    height: 100vh;
+}
+
+#container {
+    align-self: center;
+    width: 500px;
+}
+
+#tbl {
+    width: 100%;
+}
+
+table, th, td {
+    border: 1px solid black;
+    padding: 5px;
+}
+
+th {
+    background-color: darkseagreen;
+    padding: 5px;
+}
+
+td {
+    text-align: center;
+    background-color: gainsboro;
+    padding: 5px;
+}
+
+#newbook {
+    margin: 10px 0 0 0;
+    border-radius: 30px;
+    width: 100%;
+    padding: 15px;
+    background-color: darkseagreen;
+}
